@@ -1,6 +1,8 @@
 # The Docker image that will be used to build your app
 image: node:lts
 pages:
+  before_script:
+    - npm ci
   script:
     - npm run build
     - rm -rf ./public

@@ -1,7 +1,8 @@
+import "./Header.css"
 function Header() {
-    return (<>
+    return (<div className="Header">
     <h1>Header</h1> 
-    </>)
+    </div>)
 }
 
 export default Header;

@@ -1,0 +1,18 @@
+
+
+h1{
+  font-size: var(--large-text);
+  color: var(--main-color);
+}
+
+
+
+div{
+  color: var(--main-color);
+  font-size: var(--small-text);
+}
+
+button{
+  font-size: var(--medium-text);
+  background-color: var(--light-color);
+}

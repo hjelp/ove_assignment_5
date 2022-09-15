@@ -1,0 +1,45 @@
+.Container {
+    border: 2px solid var(--dark-color);
+    border-bottom: 2em solid var(--dark-color);
+    background-color: var(--light-color);
+    padding: 3em;
+    border-radius: 2em;
+}
+
+.Form {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+    font-size: var(--medium-text);
+    color: var(--semi-dark-color);
+}
+
+.Form input {
+    flex-grow: 1;
+    background-color: #f000;
+    border: none;
+    border-left: 3px solid var(--semi-dark-color);
+}
+
+.Form input:focus-visible {
+    outline: none;
+}
+
+.Form button {
+    border: none;
+    background-color: var(--semi-dark-color);
+    color: var(--light-color);
+    border-radius: 2em;
+    width: 3em;
+}
+
+.Form > *{
+    line-height: 3em;
+}
+
+.Error {
+    font-style: italic;
+    color: var(--main-color);
+    height: 1em;
+    margin: 0;
+}

@@ -8,7 +8,7 @@ function Header() {
     return (
     <div className="Header">
         <h1>Lost in Translation</h1>
-        {user && <UserIcon username={user.name} />}
+        {user && <UserIcon username={user.username} />}
     </div>)
 }
 

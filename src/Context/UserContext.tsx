@@ -1,7 +1,9 @@
 import { createContext, useState } from "react";
 
-interface User {
-    name: string,
+export interface User {
+    id: number,
+    username: string,
+    translations: string[],
 }
 
 type setUser = React.Dispatch<React.SetStateAction<User | null>>

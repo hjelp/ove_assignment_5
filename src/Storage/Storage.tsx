@@ -10,3 +10,7 @@ export const storageRead = (key : string) => {
 
   return null;
 }
+
+export const storageDelete = () => {
+  localStorage.clear();
+}

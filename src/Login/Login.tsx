@@ -1,6 +1,7 @@
 import "./Login.css"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
 
 const API_USER_URI = "https://ove-noroff-api.herokuapp.com/users";
 interface user {
@@ -12,6 +13,7 @@ interface user {
 function Login() {
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
+    const [user, setUser] = useContext(UserContext);
     const nav = useNavigate();
 
     const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -26,7 +28,7 @@ function Login() {
                 console.log(users)
                 if (!users.some(user => user.username === username))
                     throw new Error(`There are no users named ${username}`);
-                // Todo: sett user with context?
+                setUser({name: users[0].username});
                 nav("/translation");
             })
             .catch((error: Error) => {

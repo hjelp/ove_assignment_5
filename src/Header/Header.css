@@ -1,3 +1,8 @@
 .Header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     font-size: var(--large-text);
+    background-color: var(--light-color);
+    border-bottom: 3px solid var(--dark-color);
 }

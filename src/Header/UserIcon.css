@@ -1,0 +1,28 @@
+.User-Container {
+    display: flex;
+    align-items: center;
+}
+
+.User-Container:hover {
+    size: 4em;
+}
+
+.Username {
+    background-color: var(--semi-light-color);
+    margin: 0;
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 2em;
+    color: var(--dark-color);
+    border-radius: 2em;
+}
+
+.UserIcon {
+    position: relative;
+    right: 1.5em;
+    background-color: var(--semi-light-color);
+    height: 3em;
+    width: auto;
+    border: 2px solid var(--semi-light-color);
+    border-radius: 2em;
+}

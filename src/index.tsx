@@ -7,21 +7,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './Profile/Profile';
 import Translation from './Translation/Translation';
 import Login from './Login/Login';
+import UserProvider from './Context/UserContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='' element={<App />}>
-          <Route path='/profile' element={<Profile />}/>
-          <Route path='/translation' element={<Translation/>}/>
-          <Route path='' element={<Login/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='' element={<App />}>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/translation' element={<Translation />} />
+            <Route path='' element={<Login />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
 );
 

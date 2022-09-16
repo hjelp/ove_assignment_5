@@ -1,7 +1,7 @@
 import './Profile.css';
 import ProfileHistory from "./ProfileHistory"
 import Logout from "./Logout"
-import { getTranslations } from './fetchTranslations';
+import { getUser } from './fetchTranslations';
 
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../Context/UserContext";
@@ -9,6 +9,7 @@ import { storageRead, storageSave } from '../Storage/Storage';
 import { STORAGE_KEY_USER } from '../Storage/storageKeys';
 import { useNavigate } from "react-router-dom";
 import { debug } from 'console';
+import withAuth from '../Auth/withAuth';
 
 //10 last translation for current user
 //Only need to display the text
@@ -20,7 +21,7 @@ function  Profile() {
     const [user, setUser] = useContext(UserContext);
 
 
-    storageSave('translate-user', 'mrbata');
+    //storageSave('translate-user', 'mrbeta');
 
     const [userLocal] = useState(storageRead(STORAGE_KEY_USER));
     const navigate = useNavigate();
@@ -30,23 +31,21 @@ function  Profile() {
     //console.log("run" + user.name);
     //= useContext(UserContext);
 
-        useEffect(() => { (async function fetchData(){
+    // useEffect(() => { 
+    //     (async function fetchData(){
 
-            const [error, data] = (user==null) ? await getTranslations(userLocal) : [null];
+    //     const [error, data] = (user==null) ? await getTranslations(userLocal) : [null];
 
+    //         if(data === null){
+    //             navigate("/");
+    //         }else{
+    //             setUser(data)
             
-            
-
-            if(data.length === 0){
-                navigate("/");
-            }else{
-                setUser(data)
-            }
-
-            console.log("state" + data.username)
-        })();
-
-    },[]) 
+    //         console.log("state" + data.username)
+    //         }
+    //     }
+    //     )()
+    //  },[]) 
     
 
 
@@ -59,8 +58,4 @@ function  Profile() {
         <ProfileHistory></ProfileHistory>
     </>)
 }
-
-
-
-
-export default Profile;
+export default withAuth(Profile);

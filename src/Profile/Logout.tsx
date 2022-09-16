@@ -1,13 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-import { storageDelete } from '../Storage/Storage';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
+import { storageDelete } from "../Storage/Storage";
 //This should clear cache and redirect
-
-
-
-
-
 
 const Logout = ()=>{
   const [loading, setLoading] = useState(false);

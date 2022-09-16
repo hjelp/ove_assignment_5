@@ -9,28 +9,32 @@
 .Form {
     display: flex;
     justify-content: center;
-    width: 80vw;
+    margin: 1.1em;
+    padding: 0.2em;
+    border-radius: 1em;
+    width: 65vw;
+    background-color: var(--dark-color);
     font-size: var(--medium-text);
-    color: var(--semi-dark-color);
+    color: var(--semi-light-color);
 }
 
 .Form input {
+    color: var(--light-color);
     flex-grow: 1;
     background-color: #f000;
     border: none;
     border-left: 3px solid var(--semi-dark-color);
+    margin-left: 1em;
 }
 
 .Form input:focus-visible {
     outline: none;
 }
 
-.Form button {
-    border: none;
-    background-color: var(--semi-dark-color);
-    color: var(--light-color);
-    border-radius: 2em;
-    width: 3em;
+.Submit-Btn {
+    height: 1.9em;
+    width: auto;
+    margin-right: 0.1em;
 }
 
 .Form > *{

@@ -1,6 +1,6 @@
-const historyItem = (props: { text: string }) => {
+const historyItem = (props: { text: string, index: number, onSelect : (index: number) => void  }) => {
   
-  return <li>{props.text}</li>;
+  return <li onClick={ () => props.onSelect(props.index)}>{props.text}</li>;
 };
 
 

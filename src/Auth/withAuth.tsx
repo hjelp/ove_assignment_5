@@ -9,7 +9,7 @@ import { STORAGE_KEY_USER } from "../Storage/storageKeys";
 //Closure
 const withAuth  = (Component: any) => (props: JSX.IntrinsicAttributes) => {
   const [user, setUser] = useContext(UserContext);
-  //storageSave('translate-user', '1');
+  storageSave('translate-user', '1');
   if(user !== null){
     return <Component {...props} />
   } else{

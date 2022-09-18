@@ -25,12 +25,22 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
     }
   }
 
+  //We can choose to navigate away or give it the possibility to delete one
+  //Each translation does not have an id
+  const handleTranslationClicked =  (index: number) => { 
+    console.log("You clicked " + index)
+
+  }
+
   return (
   <section>
       <h4>Your translation history</h4>
       <ul>
-        {
-          props.translations.map((t, index) =><ProfileHistoryItem text={t} key={index + "-" + t}/>)
+        { 
+          //Todo: Add the picture versions of each
+          user && 
+          user.translations.map((t, index) =><ProfileHistoryItem text={t} 
+            index={index} key={index + "-" + t} onSelect={handleTranslationClicked}/>)
         }
       </ul>
       <button onClick={handleProfileHistoryDeleteClick}>DeleteHistory</button>

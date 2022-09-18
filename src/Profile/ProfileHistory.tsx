@@ -8,28 +8,33 @@ import { deleteTranslation } from "../API/deleteTranslation";
 
 const ProfileHistory = (props: { translations: string[] }) =>  {
   const [user, setUser] = useContext(UserContext);
-
+  const[SelectedId, setSelectedId] = useState<number>(-1);
   const handleProfileHistoryDeleteClick =  () => {
+    deleteTranslations();
+  }
+
+  const deleteTranslations = (id : number = -1) => {
     if(user!=null){
       (async function fetchData(){
-        //ToDO replace this test deletion
-        //translations.text.splice(0, 1); Splice can delete one
-
-        const [error, newUser] = await deleteTranslation(user.id, []);
+        //Splice returns no element array if no deletion
+        var tempTranslations : string[] = user.translations;
+        tempTranslations.splice(id, 1);
+        const [error, newUser] = await deleteTranslation(user.id, tempTranslations);
+        debugger
         if(newUser !== null){
           setUser(newUser);
         }else{
           throw Error(error);
         }
+        
       })()
     }
   }
 
   //We can choose to navigate away or give it the possibility to delete one
-  //Each translation does not have an id
   const handleTranslationClicked =  (index: number) => { 
     console.log("You clicked " + index)
-
+    setSelectedId(index);
   }
 
   return (
@@ -43,7 +48,9 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
             index={index} key={index + "-" + t} onSelect={handleTranslationClicked}/>)
         }
       </ul>
-      <button onClick={handleProfileHistoryDeleteClick}>DeleteHistory</button>
+      <button onClick={handleProfileHistoryDeleteClick}>DeleteAllHistory</button>
+      <button onClick={() => deleteTranslations(SelectedId)}>DeleteSelectedHistory</button>
+
   </section>)
 }
 

@@ -9,6 +9,7 @@ import { STORAGE_KEY_USER } from '../Storage/storageKeys';
 import { useNavigate } from "react-router-dom";
 import { debug } from 'console';
 import withAuth from '../Auth/withAuth';
+import ProfileInfo from './ProfileInfo';
 
 //10 last translation for current user
 //Only need to display the text
@@ -18,43 +19,24 @@ function  Profile() {
     
     //If context.user = null
     const [user, setUser] = useContext(UserContext);
+    var uname = "";
+    var translations: string[] = [];
 
-
+    if(user!==null){ 
+        uname = user.username;
+        translations = user.translations;
+    }
     //torageSave('translate-user', 'dewaldels');
 
     const [userLocal] = useState(storageRead(STORAGE_KEY_USER));
     const navigate = useNavigate();
 
     //debugger
-
-    //console.log("run" + user.name);
-    //= useContext(UserContext);
-
-    // useEffect(() => { 
-    //     (async function fetchData(){
-
-    //     const [error, data] = (user==null) ? await getTranslations(userLocal) : [null];
-
-    //         if(data === null){
-    //             navigate("/");
-    //         }else{
-    //             setUser(data)
-            
-    //         console.log("state" + data.username)
-    //         }
-    //     }
-    //     )()
-    //  },[]) 
-    
-
-
-    
-
     return (
     <>
-
+        <ProfileInfo uname={uname}></ProfileInfo>
+        <ProfileHistory translations={translations}></ProfileHistory>
         <Logout></Logout>
-        <ProfileHistory></ProfileHistory>
     </>)
 }
 export default withAuth(Profile);

@@ -1,41 +1,40 @@
 import ProfileHistoryItem from "./ProfileHistoryItem"
 import { UserContext } from "../Context/UserContext";
 import { useState, useEffect, useContext } from "react";
+import { deleteTranslation } from "../API/deleteTranslation";
 
 //STATE
-const translations = {
-  text: ["asdasd", "bfsdfsdf", "casdasd", "dfgfsdf", "esfsdfsdf", "fsfsdf", "ghfghfg", "hadasd", "isdfsdf", "jasdasdas"],
-}
+//var translations: string[] = [];
 
-
-
-
-
-const handleProfileHistoryDeleteClick= () => {
-
-  translations.text = translations.text.splice(0, translations.text.length);
-
-}
-
-function ProfileHistory() {
+const ProfileHistory = (props: { translations: string[] }) =>  {
   const [user, setUser] = useContext(UserContext);
-  //Effect?
 
-  useEffect(() => {
+  const handleProfileHistoryDeleteClick =  () => {
     if(user!=null){
-      translations.text = user.translations;
+      (async function fetchData(){
+        //ToDO replace this test deletion
+        //translations.text.splice(0, 1); Splice can delete one
+
+        const [error, newUser] = await deleteTranslation(user.id, []);
+        if(newUser !== null){
+          setUser(newUser);
+        }else{
+          throw Error(error);
+        }
+      })()
     }
-  }, [user])
+  }
 
   return (
-  <>
+  <section>
+      <h4>Your translation history</h4>
       <ul>
         {
-          translations.text.map(t =><ProfileHistoryItem text={t} key={t}/>)
+          props.translations.map((t, index) =><ProfileHistoryItem text={t} key={index + "-" + t}/>)
         }
       </ul>
       <button onClick={handleProfileHistoryDeleteClick}>DeleteHistory</button>
-  </>)
+  </section>)
 }
 
 export default ProfileHistory;

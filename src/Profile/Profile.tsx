@@ -1,8 +1,7 @@
 import './Profile.css';
 import ProfileHistory from "./ProfileHistory"
 import Logout from "./Logout"
-import { getUser } from './fetchTranslations';
-
+import { getUser } from '../API/getUser';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../Context/UserContext";
 import { storageRead, storageSave } from '../Storage/Storage';
@@ -21,7 +20,7 @@ function  Profile() {
     const [user, setUser] = useContext(UserContext);
 
 
-    //storageSave('translate-user', 'mrbeta');
+    //torageSave('translate-user', 'dewaldels');
 
     const [userLocal] = useState(storageRead(STORAGE_KEY_USER));
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
-import { getUser } from "../Profile/fetchTranslations";
+import { getUser } from "../API/getUser";
 import { storageRead, storageSave } from "../Storage/Storage";
 import { STORAGE_KEY_USER } from "../Storage/storageKeys";
 

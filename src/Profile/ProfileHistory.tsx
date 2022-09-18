@@ -22,11 +22,10 @@ function ProfileHistory() {
   //Effect?
 
   useEffect(() => {
-      
-
+    if(user!=null){
+      translations.text = user.translations;
+    }
   }, [user])
-
-
 
   return (
   <>

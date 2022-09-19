@@ -32,7 +32,7 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
         }
         tempTranslations.splice(id, deleteCount);
         const [error, newUser] = await deleteTranslation(user.id, tempTranslations);
-        if(newUser !== null){
+        if(error === null){
           setUser(newUser);
         }else{
           throw Error(error);
@@ -54,9 +54,12 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
       <ul>
         { 
           //Todo: Add the picture versions of each
-          user && 
-          user.translations.map((t, index) =><ProfileHistoryItem text={t} 
-            index={index} key={index + "-" + t} onSelect={handleTranslationClicked}/>)
+          user &&  //Side-effect of reversing array
+          user.translations.slice(0).reverse().slice(0, 9).map((t, index) =>
+          <ProfileHistoryItem text={t} 
+            index={index} key={index + "-" + t} onSelect={handleTranslationClicked}/>
+          
+          )
         }
       </ul>
       <button onClick={handleProfileHistoryDeleteClick}>DeleteAllHistory</button>

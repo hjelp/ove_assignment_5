@@ -40,7 +40,7 @@ function Login() {
                 if (users.length === 0)
                     throw new Error("No users with that name");
                 setUser(users[0]); // Update UserContext to store the logged in User;
-                storageSave("translate-user", users[0]); // Save the loggend in user in local storage.
+                storageSave("translate-user", users[0].id); // Save the loggend in user in local storage.
                 nav("/translation"); // Navigate to the translation page.
             })
             .catch(error => { setError(error) });

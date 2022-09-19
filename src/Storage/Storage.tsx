@@ -1,8 +1,12 @@
-export const storageSave = (key : string, value : any) => {
+interface StorageKeyValue {
+  'translate-user': number,
+}
+
+export const storageSave = <K extends keyof StorageKeyValue>(key : K, value : StorageKeyValue[K]) => {
   localStorage.setItem(key, JSON.stringify(value))
 }
 
-export const storageRead = (key : string) => {
+export const storageRead = <K extends keyof StorageKeyValue>(key : K): StorageKeyValue[K] | null => {
   const data = localStorage.getItem(key);
   if(data){
     return JSON.parse(data)
@@ -11,6 +15,6 @@ export const storageRead = (key : string) => {
   return null;
 }
 
-export const storageDelete = (key : string) => {
+export const storageDelete = (key : keyof StorageKeyValue) => {
   localStorage.removeItem(key);
 }

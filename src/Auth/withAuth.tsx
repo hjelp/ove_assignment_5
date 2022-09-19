@@ -7,9 +7,9 @@ import { STORAGE_KEY_USER } from "../Storage/storageKeys";
 
 
 //Closure
-const withAuth  = (Component: any) => (props: JSX.IntrinsicAttributes) => {
+const withAuth  = (Component: React.FC) => (props: JSX.IntrinsicAttributes) => {
   const [user, setUser] = useContext(UserContext);
-  storageSave('translate-user', '1');
+  //storageSave('translate-user', '1');
   if(user !== null){
     return <Component {...props} />
   } else{
@@ -21,7 +21,6 @@ const withAuth  = (Component: any) => (props: JSX.IntrinsicAttributes) => {
     if(userLocal !== null){
       (async function fetchData(){
         const [error, data] = await getUser(userLocal)
-        debugger
         if(error == null){
           setUser(data)
           

@@ -25,16 +25,13 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
       (async function fetchData(){
         //Splice returns no element array if no deletion
         var tempTranslations : string[] = user.translations;
-        debugger
         var deleteCount : number = 1;
         if(id<0){
           deleteCount = tempTranslations.length
           id=0;
-          debugger
         }
         tempTranslations.splice(id, deleteCount);
         const [error, newUser] = await deleteTranslation(user.id, tempTranslations);
-        debugger
         if(newUser !== null){
           setUser(newUser);
         }else{

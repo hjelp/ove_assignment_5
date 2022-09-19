@@ -7,18 +7,32 @@ import { deleteTranslation } from "../API/deleteTranslation";
 //var translations: string[] = [];
 
 const ProfileHistory = (props: { translations: string[] }) =>  {
+
+  console.log("funny");
+
   const [user, setUser] = useContext(UserContext);
   const[SelectedId, setSelectedId] = useState<number>(-1);
   const handleProfileHistoryDeleteClick =  () => {
+    console.log("adssadsadsad")
+    debugger
     deleteTranslations();
   }
 
   const deleteTranslations = (id : number = -1) => {
+    
+
     if(user!=null){
       (async function fetchData(){
         //Splice returns no element array if no deletion
         var tempTranslations : string[] = user.translations;
-        tempTranslations.splice(id, 1);
+        debugger
+        var deleteCount : number = 1;
+        if(id<0){
+          deleteCount = tempTranslations.length
+          id=0;
+          debugger
+        }
+        tempTranslations.splice(id, deleteCount);
         const [error, newUser] = await deleteTranslation(user.id, tempTranslations);
         debugger
         if(newUser !== null){

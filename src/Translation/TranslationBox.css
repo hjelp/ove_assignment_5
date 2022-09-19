@@ -1,0 +1,10 @@
+
+
+.ContainerBox {
+    border: 2px solid var(--semi-light-color);
+    border-bottom: 2em solid var(--semi-light-color);
+    background-color: var(--light-color);
+    padding: 3em;
+    border-radius: 2em;
+}
+

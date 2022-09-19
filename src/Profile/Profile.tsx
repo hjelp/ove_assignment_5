@@ -1,61 +1,37 @@
 import './Profile.css';
 import ProfileHistory from "./ProfileHistory"
 import Logout from "./Logout"
-import { getUser } from './fetchTranslations';
-
+import { getUser } from '../API/getUser';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../Context/UserContext";
-import { storageRead, storageSave } from '../Storage/Storage';
+import { storageDelete, storageRead, storageSave } from '../Storage/Storage';
 import { STORAGE_KEY_USER } from '../Storage/storageKeys';
 import { useNavigate } from "react-router-dom";
 import { debug } from 'console';
 import withAuth from '../Auth/withAuth';
+import ProfileInfo from './ProfileInfo';
 
 //10 last translation for current user
 //Only need to display the text
 //Button to clear the translations(delete from browser local storage)
 //Return 
 function  Profile() {
-    
-    //If context.user = null
     const [user, setUser] = useContext(UserContext);
-
-
-    //storageSave('translate-user', 'mrbeta');
-
-    const [userLocal] = useState(storageRead(STORAGE_KEY_USER));
+    var uname = "";
+    var translations: string[] = [];
     const navigate = useNavigate();
 
+    if(user!==null){ 
+        uname = user.username;
+        translations = user.translations;
+    }
+
     //debugger
-
-    //console.log("run" + user.name);
-    //= useContext(UserContext);
-
-    // useEffect(() => { 
-    //     (async function fetchData(){
-
-    //     const [error, data] = (user==null) ? await getTranslations(userLocal) : [null];
-
-    //         if(data === null){
-    //             navigate("/");
-    //         }else{
-    //             setUser(data)
-            
-    //         console.log("state" + data.username)
-    //         }
-    //     }
-    //     )()
-    //  },[]) 
-    
-
-
-    
-
     return (
     <>
-
+        <ProfileInfo uname={uname}></ProfileInfo>
+        <ProfileHistory translations={translations}></ProfileHistory>
         <Logout></Logout>
-        <ProfileHistory></ProfileHistory>
     </>)
 }
 export default withAuth(Profile);

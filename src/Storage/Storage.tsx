@@ -11,6 +11,6 @@ export const storageRead = (key : string) => {
   return null;
 }
 
-export const storageDelete = () => {
-  localStorage.clear();
+export const storageDelete = (key : string) => {
+  localStorage.removeItem(key);
 }

@@ -1,10 +1,8 @@
 
-
-
-export const getUser = async (username : string) => {
+export const getUser = async (id : number) => {
   try{
     //The fetch can contain mthod, headers, and body like in postman
-    const response = await fetch(`https://ove-noroff-api.herokuapp.com/users?username=${username}`)
+    const response = await fetch(`https://ove-noroff-api.herokuapp.com/translations?id=${id}`)
     if(!response.ok){
       throw new Error('Could not complete request')
     }

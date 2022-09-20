@@ -5,7 +5,7 @@ pages:
     - npm ci
   script:
     - npm run build
-    - rm -rf ./public
+    - [ -d ./public ] && mv ./public ./static
     - mv ./build ./public
   artifacts:
     paths:

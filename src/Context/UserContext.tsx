@@ -22,7 +22,8 @@ function UserProvider({ children } : { children : JSX.Element | JSX.Element[]}) 
     const [user, setUser] = useState<User | null>(null);
     const userLocal = storageRead(STORAGE_KEY_USER) as number;
 
-    if(userLocal !== null){
+    
+    if(userLocal !== null && user === null){
         getUserById(userLocal)
         .then(data => {
             let [, user] = data;

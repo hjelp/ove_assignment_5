@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import {User, UserContext} from "../Context/UserContext";
+import { Navigate } from "react-router-dom";
+import { User, UserContext } from "../Context/UserContext";
 import TranslationBox from "./TranslationBox";
 import TranslationForm from "./TranslationForm";
 
@@ -28,7 +28,7 @@ async function updateTranslation(user: User, word: string) {
         const data = await response.json()
         return data
     }
-    catch (error) { 
+    catch (error) {
         console.log(error)
         return null
     }
@@ -37,24 +37,24 @@ async function updateTranslation(user: User, word: string) {
 
 function Translation() {
 
-    let [letter, setLetter] = useState("")
+    const [letter, setLetter] = useState("")
+    const [user, setUser] = useContext(UserContext)
 
-    const [user, setUser] = useContext(UserContext);
     if (user === null) {
         return <Navigate to={"/"} />
     }
 
     const submitTranslationHandler = async () => {
         const myLetter = letter.replace(/[^a-zA-Z\s]/g, "")
-        if(myLetter.trim().length > 0){
+        if (myLetter.trim().length > 0) {
             let updatedUser = await updateTranslation(user, myLetter)
-            if(updatedUser !== null)
+            if (updatedUser !== null)
                 setUser(updatedUser)
         }
     }
 
     return (<>
-        <TranslationForm submitTranslationHandler = {submitTranslationHandler} setLetter={setLetter} />
+        <TranslationForm submitTranslationHandler={submitTranslationHandler} setLetter={setLetter} />
         <h1>Translation</h1>
         <TranslationBox letter={letter} />
     </>)

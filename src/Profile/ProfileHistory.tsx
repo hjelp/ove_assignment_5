@@ -1,6 +1,6 @@
 import ProfileHistoryItem from "./ProfileHistoryItem"
 import { UserContext } from "../Context/UserContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { deleteTranslation } from "../API/deleteTranslation";
 
 //STATE
@@ -8,23 +8,20 @@ import { deleteTranslation } from "../API/deleteTranslation";
 
 const ProfileHistory = (props: { translations: string[] }) =>  {
 
-  console.log("funny");
-
   const [user, setUser] = useContext(UserContext);
+
+  
+
   const[SelectedId, setSelectedId] = useState<number>(-1);
   const handleProfileHistoryDeleteClick =  () => {
-    console.log("adssadsadsad")
-    debugger
     deleteTranslations();
   }
 
   const deleteTranslations = (id : number = -1) => {
-    
-
     if(user!=null){
       (async function fetchData(){
         //Splice returns no element array if no deletion
-        var tempTranslations : string[] = user.translations;
+        var tempTranslations : string[] = user.translations.reverse();
         var deleteCount : number = 1;
         if(id<0){
           deleteCount = tempTranslations.length
@@ -42,29 +39,45 @@ const ProfileHistory = (props: { translations: string[] }) =>  {
     }
   }
 
+
+  const translationHistoryId = "translationHistoryList";
+
   //We can choose to navigate away or give it the possibility to delete one
-  const handleTranslationClicked =  (index: number) => { 
-    console.log("You clicked " + index)
-    setSelectedId(index);
+  const handleTranslationClicked =  (index: number, e : React.MouseEvent<HTMLLIElement>) => { 
+    //just to prevent double click deselecting
+    if (e.detail === 1){ 
+      setSelectedId(index);
+    
+      //Unselect all others
+      const elList = document.getElementById(translationHistoryId);
+      if(elList === null) return;
+      for (var i = 0; i < elList.children.length; i++) {
+        elList.children[i].className="unselectedHistory";
+      }
+      //Select ours
+      e.currentTarget.className = 
+        (e.currentTarget.className === "selectedHistory") ? "unselectedHistory" : "selectedHistory";
+    }
   }
 
   return (
-  <section>
+  <section id="profileHistory">
       <h4>Your translation history</h4>
-      <ul>
+      <ul id={translationHistoryId}>
         { 
           //Todo: Add the picture versions of each
           user &&  //Side-effect of reversing array
-          user.translations.slice(0).reverse().slice(0, 9).map((t, index) =>
+          [...user.translations].reverse().slice(0, 9).map((t, index) =>
           <ProfileHistoryItem text={t} 
             index={index} key={index + "-" + t} onSelect={handleTranslationClicked}/>
           
           )
         }
       </ul>
-      <button onClick={handleProfileHistoryDeleteClick}>DeleteAllHistory</button>
-      <button onClick={() => deleteTranslations(SelectedId)}>DeleteSelectedHistory</button>
-
+      <section id="deleteHistory">
+        <button onClick={handleProfileHistoryDeleteClick}>DeleteAllHistory</button>
+        <button onClick={() => deleteTranslations(SelectedId)}>DeleteSelectedHistory</button>
+      </section>
   </section>)
 }
 

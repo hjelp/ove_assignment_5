@@ -6,6 +6,7 @@ import { User, UserContext } from "../Context/UserContext";
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { storageSave, storageRead } from "../Storage/Storage";
 import getUserByUsername from "../API/getUserByUsername";
+import WithoutAuth from "../Auth/WithoutAuth";
 
 const API_USER_URI = "https://ove-noroff-api.herokuapp.com/translations";
 
@@ -47,7 +48,7 @@ function Login() {
                 storageSave("translate-user", user.id); // Save the loggend in user in local storage.
                 nav("/translation"); // Navigate to the translation page.
                 return;
-            }
+            }   
         });
     }
 
@@ -63,4 +64,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default WithoutAuth(Login);

@@ -1,6 +1,9 @@
-const historyItem = (props: { text: string, index: number, onSelect : (index: number) => void  }) => {
+
+
+
+const historyItem = (props: { text: string, index: number, onSelect : (index: number, event : React.MouseEvent<HTMLLIElement>) => void  }) => {
   
-  return <li onClick={ () => props.onSelect(props.index)}>{props.text}</li>;
+  return <li className="unselectedHistory" onClick={ (e) => props.onSelect(props.index, e)}>{props.text}</li>;
 };
 
 

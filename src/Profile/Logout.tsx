@@ -21,7 +21,7 @@ const Logout = () => {
   
   return (
     <> 
-      <button onClick={handleLogoutClick} disabled = {loading}>
+      <button id="profileLogout" onClick={handleLogoutClick} disabled = {loading}>
         Logout
       </button>
     </>

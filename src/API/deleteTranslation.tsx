@@ -20,7 +20,7 @@ export const deleteTranslation = async (UserId : number, translations: string[])
       throw new Error('Could not complete request')
     }
     const jsonResponse = await response.json();
-    return ["", jsonResponse]
+    return [null, jsonResponse]
   }catch(error){
     let message = 'Unkown error'
     if(error instanceof Error) message = error.message;

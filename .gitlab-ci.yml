@@ -1,11 +1,16 @@
 # The Docker image that will be used to build your app
 image: node:lts
+
+cache:
+  paths:
+    - ./node_modules/
+
 pages:
   before_script:
-    - npm ci
+    - CI=false npm install
   script:
-    - npm run build
-    - '[ -d ./public ] && mv ./public ./static'
+    - CI=false npm run build
+    - test -d ./public && rm -rf ./public
     - mv ./build ./public
   artifacts:
     paths:

@@ -1,18 +1,16 @@
 import "./Login.css"
 import { useForm } from 'react-hook-form'
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, UserContext } from "../Context/UserContext";
+import { UserContext } from "../Context/UserContext";
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
-import { storageSave, storageRead } from "../Storage/Storage";
+import { storageSave } from "../Storage/Storage";
 import getUserByUsername from "../API/getUserByUsername";
-
-const API_USER_URI = "https://ove-noroff-api.herokuapp.com/translations";
+import WithoutAuth from '../Auth/withoutAuth';
 
 interface FormValues {
     username: string,
 }
-
 
 function Login() {
 
@@ -23,15 +21,6 @@ function Login() {
     const [, setUser] = useContext(UserContext);
 
     const nav = useNavigate();
-
-    // Silent login on-load;
-    useEffect(() => {
-        let user = storageRead('translate-user');
-        if(user === null)
-            return;
-        setUser(user);
-        nav("/translation");
-    });
 
     // Fetches users with username === to form value, if any logs in as first found.
     const onSubmit = (values: FormValues) => {
@@ -53,7 +42,7 @@ function Login() {
 
     return (
         <div className="Container">
-            <form className="Form">
+            <form className="Form" onSubmit={handleSubmit(onSubmit)}>
                 <input placeholder="What's your name?" {...register("username", { required: ("Username is required to login") })} />
                 <BsFillArrowRightCircleFill  className="Submit-Btn" type="submit" onClick={handleSubmit(onSubmit)}/>
             </form>
@@ -63,4 +52,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default WithoutAuth(Login);

@@ -14,8 +14,8 @@ function TranslationForm({ setLetter, submitTranslationHandler }: IProps) {
     return (<>
 
         <form className="Form" onSubmit={(e) => e.preventDefault()}>
-            <input type="text" onChange={onChangeHandler} placeholder="Write something..."></input>
-            <button type="submit" onClick={submitTranslationHandler}>Submit&rarr;</button>
+            <input type="text" onChange={onChangeHandler} maxLength = {40} placeholder="Write something..."></input>
+            <button className="Button" type="submit" onClick={submitTranslationHandler}>Submit&rarr;</button>
         </form>
     </>)
 }

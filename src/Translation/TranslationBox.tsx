@@ -3,7 +3,6 @@ import "./TranslationBox.css"
 
 
 function TranslationBox(props: any) {
-    console.log(props.letter)
     const myString = props.letter.replace(/[^a-zA-Z]/g, "")
     if (myString.length > 60) {
         alert("Max 60 chars!")

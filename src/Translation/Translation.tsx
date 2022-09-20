@@ -37,14 +37,12 @@ async function updateTranslation(user: User, word: string) {
 
 function Translation() {
 
-    console.log(useLocation())
     let [letter, setLetter] = useState("")
 
     const [user, setUser] = useContext(UserContext);
     if (user === null) {
         return <Navigate to={"/"} />
     }
-    console.log(user);
 
     const submitTranslationHandler = async () => {
         const myLetter = letter.replace(/[^a-zA-Z\s]/g, "")

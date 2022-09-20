@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { User, UserContext } from "../Context/UserContext";
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { storageSave, storageRead } from "../Storage/Storage";
+import getUserByUsername from "../API/getUserByUsername";
 
 const API_USER_URI = "https://ove-noroff-api.herokuapp.com/translations";
 
@@ -15,7 +16,7 @@ interface FormValues {
 
 function Login() {
 
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const { register, handleSubmit, formState: { errors: formErrors } } = useForm<FormValues>();
 
@@ -34,6 +35,20 @@ function Login() {
 
     // Fetches users with username === to form value, if any logs in as first found.
     const onSubmit = (values: FormValues) => {
+        getUserByUsername(values.username)
+        .then(data => {
+            let [error, user] = data;
+            if(error !== null) {
+                setError(error);
+                return;
+            }
+            if(user !== null) {
+                setUser(user); // Update UserContext to store the logged in User;
+                storageSave("translate-user", user.id); // Save the loggend in user in local storage.
+                nav("/translation"); // Navigate to the translation page.
+                return;
+            }
+        });
         fetch(API_USER_URI + '?username=' + values.username)
             .then(response => response.json())
             .then((users: User[]) => {
@@ -53,7 +68,7 @@ function Login() {
                 <BsFillArrowRightCircleFill  className="Submit-Btn" type="submit" onClick={handleSubmit(onSubmit)}/>
             </form>
             <p className="Error">{formErrors.username && formErrors.username.message
-                || error && error.message}</p>
+                || error && error}</p>
         </div>
     );
 }

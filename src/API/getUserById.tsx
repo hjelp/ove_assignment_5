@@ -1,5 +1,6 @@
+import { User } from "../Context/UserContext";
 
-export const getUser = async (id : number) => {
+const getUserById = async (id : number): Promise<[string, null] | [null, User]> => {
   try{
     //The fetch can contain mthod, headers, and body like in postman
     const response = await fetch(`https://ove-noroff-api.herokuapp.com/translations?id=${id}`)
@@ -8,7 +9,7 @@ export const getUser = async (id : number) => {
     }
     const data = await response.json();
     if(data.length > 0)
-      return [null, data.pop()];
+      return [null, data[0]];
     else{
       throw Error("User not found");
     }
@@ -16,6 +17,8 @@ export const getUser = async (id : number) => {
   catch(error){
     let message = 'Unkown error'
     if(error instanceof Error) message = error.message;
-    return [message, []]
+    return [message, null]
   }
 }
+
+export default getUserById;

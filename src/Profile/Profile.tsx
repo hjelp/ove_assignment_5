@@ -1,7 +1,7 @@
 import './Profile.css';
 import ProfileHistory from "./ProfileHistory"
 import Logout from "./Logout"
-import { getUser } from '../API/getUser';
+import  getUserById  from '../API/getUserById';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../Context/UserContext";
 import { storageDelete, storageRead, storageSave } from '../Storage/Storage';

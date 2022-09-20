@@ -48,9 +48,11 @@ function Translation() {
 
     const submitTranslationHandler = async () => {
         const myLetter = letter.replace(/[^a-zA-Z\s]/g, "")
-        let updatedUser = await updateTranslation(user, myLetter)
-        if(updatedUser !== null)
-            setUser(updatedUser)
+        if(myLetter.trim().length > 0){
+            let updatedUser = await updateTranslation(user, myLetter)
+            if(updatedUser !== null)
+                setUser(updatedUser)
+        }
     }
 
     return (<>

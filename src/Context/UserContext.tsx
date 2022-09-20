@@ -1,4 +1,7 @@
 import { createContext, useState } from "react";
+import  getUserById  from "../API/getUser";
+import { storageRead } from "../Storage/Storage";
+import { STORAGE_KEY_USER } from "../Storage/storageKeys";
 
 export interface User {
     id: number,
@@ -17,6 +20,17 @@ export function useUserContext() {
 
 function UserProvider({ children } : { children : JSX.Element | JSX.Element[]}) {
     const [user, setUser] = useState<User | null>(null);
+    const userLocal = storageRead(STORAGE_KEY_USER) as number;
+
+    if(userLocal !== null){
+        getUserById(userLocal)
+        .then(data => {
+            let [, user] = data;
+            if(user !== null) {
+                setUser(user);
+            }
+        });
+    }
 
     return (
         <UserContext.Provider value={[ user, setUser ]}>
